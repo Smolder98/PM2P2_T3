@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2P2_T3.View.ListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame  BackgroundColor="#687FC7" Padding="5">
+                <Grid>
+                    <Label Text="Deslice hacia la derecha " 
+                       HorizontalOptions="Center"
+                       TextColor="White" 
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       />
+
+                    <ImageButton Source="arrow.png"
+                                 HorizontalOptions="Start"
+                                 HeightRequest="25"
+                                 Margin="10,0,0,0"
+                                 BackgroundColor="Transparent"
+                                 Clicked="ImageButton_Clicked"
+                                 />
+                </Grid>
+            </Frame>
+
+
+
+            <ListView x:Name="list" 
+                      HasUnevenRows="True"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+
+                                    <SwipeItems>
+                                        <SwipeItem Text="Play"
+                                           IconImageSource="audio.png"
+                                           BackgroundColor="#9DC7CF"
+                                           Invoked="SwipeItem_Invoked" />
+
+                                        <SwipeItem Text="Delete"
+                                           IconImageSource="delete.png"
+                                           BackgroundColor="#CF9D9D"
+                                           Invoked="SwipeItem_Invoked_1" />
+
+                                    </SwipeItems>
+
+                                </SwipeView.LeftItems>
+
+                                <Grid Padding="10">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0"
+                                       Text="{Binding Id}"
+                                       FontAttributes="Bold" />
+
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                       Text="{Binding DateCreation}"
+                                       FontAttributes="Bold" />
+
+                                    <Label Grid.Row="0" Grid.Column="2"
+                                       Text="{Binding Descripcion}"
+                                       FontAttributes="Bold" />
+
+                                </Grid>
+
+                            </SwipeView>
+
+
+                            
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

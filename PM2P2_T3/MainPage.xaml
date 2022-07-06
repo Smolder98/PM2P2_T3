@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2P2_T3.MainPage"
+             Visual="Material">
+
+    <ScrollView>
+        <StackLayout>
+
+            <Frame  BackgroundColor="#687FC7" Padding="5">
+
+                <Label x:Name="txtMessage"
+                       Text="No esta grabando" 
+                       HorizontalOptions="Center"
+                       TextColor="White" 
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       />
+
+            </Frame>
+
+            <Image Source="audio.png"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Start"
+               WidthRequest="300"
+               HeightRequest="500"
+               />
+
+            <Entry x:Name="txtDescription"
+               Keyboard="Text"
+               Placeholder="Descripcion del audio"
+               Margin="20,20,20,0"
+               />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,50,0,0">
+                <Button Text="Grabar audio" HorizontalOptions="StartAndExpand" Clicked="Button_Clicked" />
+
+                <Button Text="Play a audio" HorizontalOptions="EndAndExpand" Clicked="Button_Clicked_1"/>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,20">
+                <Button Text="Guardar audio" HorizontalOptions="StartAndExpand" Clicked="Button_Clicked_2" />
+
+                <Button Text="Lista de audios" HorizontalOptions="EndAndExpand" Clicked="Button_Clicked_3"/>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
