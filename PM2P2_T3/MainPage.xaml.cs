@@ -17,11 +17,9 @@ namespace PM2P2_T3
     public partial class MainPage : ContentPage
     {
 
-        private readonly AudioRecorderService audioRecorderService = new AudioRecorderService
-        {
-            StopRecordingOnSilence = true, //will stop recording after 2 seconds (default)
-            StopRecordingAfterTimeout = true,  //stop recording after a max timeout (defined below)
-            TotalAudioTimeout = TimeSpan.FromSeconds(15) //audio will stop recording after 15 seconds
+        private readonly AudioRecorderService audioRecorderService = new AudioRecorderService() { 
+            StopRecordingOnSilence = false,
+            StopRecordingAfterTimeout = false
         };
 
         private readonly AudioPlayer audioPlayer = new AudioPlayer();
@@ -35,14 +33,18 @@ namespace PM2P2_T3
             if (App.DBase != null) { }
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            audioPlayer.Pause();
+        }
+
         private async void Button_Clicked(object sender, EventArgs e)
         {
 
             try
             {
                 var status = await Permissions.RequestAsync<Permissions.Microphone>();
-
-
                 if (status != PermissionStatus.Granted)
                     return;
 
@@ -53,6 +55,8 @@ namespace PM2P2_T3
                     txtMessage.Text = "NO esta grabando";
 
 
+                    btnGrabar.Text = "Grabar audio";
+
                     reproducir = true;
                 }
                 else
@@ -61,6 +65,8 @@ namespace PM2P2_T3
 
 
                     txtMessage.Text = "Esta grabando";
+
+                    btnGrabar.Text = "Dejar de Grabar";
                 }
             }
             catch (Exception ex)

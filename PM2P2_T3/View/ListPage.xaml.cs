@@ -28,6 +28,13 @@ namespace PM2P2_T3.View
             list.ItemsSource = await new AudioService().GetAudios();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            audioPlayer.Pause();
+        }
+
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             OnBackButtonPressed();

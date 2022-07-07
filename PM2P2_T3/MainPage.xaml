@@ -33,7 +33,7 @@
                />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,50,0,0">
-                <Button Text="Grabar audio" HorizontalOptions="StartAndExpand" Clicked="Button_Clicked" />
+                <Button x:Name="btnGrabar" Text="Grabar audio" HorizontalOptions="StartAndExpand" Clicked="Button_Clicked" />
 
                 <Button Text="Play a audio" HorizontalOptions="EndAndExpand" Clicked="Button_Clicked_1"/>
 
