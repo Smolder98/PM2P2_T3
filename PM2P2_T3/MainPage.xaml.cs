@@ -17,12 +17,12 @@ namespace PM2P2_T3
     public partial class MainPage : ContentPage
     {
 
-        private readonly AudioRecorderService audioRecorderService = new AudioRecorderService() { 
+        private  AudioRecorderService audioRecorderService = new AudioRecorderService() { 
             StopRecordingOnSilence = false,
             StopRecordingAfterTimeout = false
         };
 
-        private readonly AudioPlayer audioPlayer = new AudioPlayer();
+        private  AudioPlayer audioPlayer = new AudioPlayer();
 
         private bool reproducir = false;
 
@@ -36,7 +36,7 @@ namespace PM2P2_T3
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            audioPlayer.Pause();
+           // audioPlayer.Pause();
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
@@ -45,12 +45,19 @@ namespace PM2P2_T3
             try
             {
                 var status = await Permissions.RequestAsync<Permissions.Microphone>();
-                if (status != PermissionStatus.Granted)
-                    return;
+                var status2 = await Permissions.RequestAsync<Permissions.StorageRead>();
+                var status3 = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                if (status != PermissionStatus.Granted & status2 != PermissionStatus.Granted & status3 != PermissionStatus.Granted)
+                {
+                    return; // si no tiene los permisos no avanza
+                }
 
                 if (audioRecorderService.IsRecording)
                 {
                     await audioRecorderService.StopRecording();
+
+
+                    audioPlayer.Play(audioRecorderService.GetAudioFilePath());
 
                     txtMessage.Text = "NO esta grabando";
 
@@ -67,6 +74,8 @@ namespace PM2P2_T3
                     txtMessage.Text = "Esta grabando";
 
                     btnGrabar.Text = "Dejar de Grabar";
+
+                    //reproducir = false;
                 }
             }
             catch (Exception ex)
@@ -105,10 +114,10 @@ namespace PM2P2_T3
 
                     //Stream audioFile =  audioRecorderService.GetAudioFileStream();
 
-                    var mStream = new MemoryStream(File.ReadAllBytes(audioRecorderService.GetAudioFilePath()));
+                    //var mStream = new MemoryStream(File.ReadAllBytes(audioRecorderService.GetAudioFilePath()));
 
                     //var mStream = (MemoryStream)audioFile;
-                    Byte[] bytes = mStream.ToArray();
+                   // Byte[] bytes = mStream.ToArray();
 
 
                     var folderPath = "/storage/emulated/0/Android/data/com.companyname.pm2p2_t3/files/Audio";
@@ -119,7 +128,20 @@ namespace PM2P2_T3
                     var nameAudio = DateTime.Now.ToString("MMddyyyyhhmmss") + ".wav";
                     var fullPath = folderPath + "/" + nameAudio;
 
-                    File.WriteAllBytes( fullPath, bytes);
+
+
+                    var stream = audioRecorderService.GetAudioFileStream();
+
+
+                    using (var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
+
+                    //AudioPath = fileName;
+
+
+                    //File.WriteAllBytes( fullPath, bytes);
 
                     var audio = new Audio()
                     {

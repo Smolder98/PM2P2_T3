@@ -21,7 +21,7 @@ namespace PM2P2_T3.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            FormsMaterial.Init(this, savedInstanceState);
+           
 
             LoadApplication(new App());
 

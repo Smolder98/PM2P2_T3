@@ -32,7 +32,7 @@ namespace PM2P2_T3.View
         {
             base.OnDisappearing();
 
-            audioPlayer.Pause();
+            //audioPlayer.Pause();
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
